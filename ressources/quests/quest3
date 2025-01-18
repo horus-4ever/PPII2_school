@@ -1,0 +1,214 @@
+@quest 3
+name: "Joker !"
+map: "map1"
+nextquest: "quest4"
+
+@subquest 1
+description: "Se rendre en cours"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 2
+description: "Trouver la carte au BDA"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 3
+description: "Retrouver Théophile"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 4
+description: "Ramener Théophile au BDA"
+#init {
+    goto(theophile, 189, 127)
+}
+#loop {
+    
+}
+
+@character "tomczak"
+skin: "ressources/images/tomczak.png"
+spawnx: "5536"
+spawny: "5952"
+orientation : "3"
+{
+    line(tomczak, "Je suis M Tomczak.")
+}
+
+@character "michele"
+skin: "ressources/images/michele.png"
+spawnx: "5376"
+spawny: "5312"
+orientation : "3"
+{
+    line(michele, "Je suis Michèle.")
+}
+
+@character "heurtel"
+skin: "ressources/images/heurtel.png"
+spawnx: "2336"
+spawny: "4128"
+orientation : "3"
+{
+    if(quest.subquest == 1) {
+        line(heurtel, "Ah te voilà ! Pile à l'heure pour mon cours, ça change...")
+        answer = ask("Est-ce que tu connais ma réplique favorite ? C'est vraiment pas difficile si t'es venu en cours.")
+        if(answer == "Joker !") {
+            line(heurtel, "Evidemment ! On voit que tu écoutes en CM, cela me rassure")
+        } else if(answer == "Joker") {
+            line(heurtel, "Evidemment ! On voit que tu écoutes en CM, cela me rassure")
+        } else if(answer == "joker") {
+            line(heurtel, "Evidemment ! On voit que tu écoutes en CM, cela me rassure")
+        } else {
+            line(heurtel, "Non c'était 'Joker !', tu devrais écouter en CM...")
+        }
+        line(heurtel, "D'ailleurs, j'ai perdu ma carte Joker... J'ai du la laisser au BDA quand j’écoutais les élèves jouer tout à l'heure")
+        line(heurtel, "Peux-tu aller me la chercher ?")
+        playsound("subquest")
+        gotoSubquest(2)
+    } else {
+        line(heurtel, "J'attends toujours ma carte.")
+    }
+}
+
+@character "heudiard"
+skin: "ressources/images/heudiard.png"
+spawnx: "6432"
+spawny: "5632"
+orientation : "2"
+{
+    if (quest.subquest == 1) {
+        line(heudiard, "Tu devrais être en CM de MO !")
+    } else {
+        line(heudiard, "Je suis Mme Heudiard.")
+    }
+}
+
+@character "bouthier"
+skin: "ressources/images/bouthier.png"
+spawnx: "5344"
+spawny: "2464"
+orientation : "3"
+{
+    if (quest.subquest == 1) {
+        line(bouthier, "Tu devrais être en CM de MO !")
+    } else {
+        line(bouthier, "Je suis M Bouthier.")
+    }
+}
+
+@character "marc"
+skin: "ressources/images/marc.png"
+spawnx: "4160"
+spawny: "3296"
+orientation : "3"
+{
+    if (quest.subquest == 1) {
+        line(marc, "Dépêche-toi on devrait être en cours !")
+    } else {
+        line(marc, "Je suis Marc.")
+    }
+}
+
+@character "lucine"
+skin: "ressources/images/lucine.png"
+spawnx: "5536"
+spawny: "2784"
+orientation : "4"
+{
+    if (quest.subquest == 1) {
+        line(lucine, "Dépêche-toi on devrait être en cours !")
+    } else {
+        line(lucine, "Je suis Lucine.")
+    }
+}
+
+@character "theophile"
+skin: "ressources/images/theophile.png"
+spawnx: "4448"
+spawny: "5344"
+orientation : "3"
+{
+    if (quest.subquest == 1) {
+        line(theophile, "Dépêche-toi on devrait être en cours !")
+    } else if (quest.subquest == 3) {
+        line(theophile, "Amine me cherche ? Ok je te suis.")
+        playsound("subquest")
+        gotoSubquest(4)
+    } else if (quest.subquest == 4) {
+        goto(theophile, 188, 127)
+    }
+    else {
+        line(theophile, "Je suis Theophile.")
+    }
+}
+
+@sound "piano"
+sound: "ressources/sound/piano.mp3"
+
+@character "amine"
+skin: "ressources/images/amine.png"
+spawnx: "5280"
+spawny: "3424"
+orientation : "1"
+{
+    if (quest.subquest == 1) {
+        line(amine, "Dépêche-toi on devrait être en cours !")
+    } else if (quest.subquest == 2) {
+        line(amine, "Salut ! Je suis Amine.")
+        answer = askChoices("Que veux-tu ?", "Ecouter du piano", "Une carte Joker", 2)
+        if(answer == "Ecouter du piano") {
+            playsound("piano")
+        } else{
+            line(amine,"Ah oui, je peux te la chercher. Va me chercher theophile pendant ce temps, on doit jouer ensemble.")
+            line(amine, "Je l'ai croisé dans le hall tout à l'heure.")
+            playsound("subquest")
+            gotoSubquest(3)
+        }
+    } else if (quest.subquest == 3) {
+        line(amine, "J'attends théophile.")
+    } else if (quest.subquest == 4) {
+        line(amine, "Ah théophile te voila ! Merci " + player.name + " !")
+        line(amine, "Tiens j'ai retrouvé la carte.")
+        give("joker")
+        line(amine, "Au fait pour ton PC à réparer, M Bouthier est à TekTN si tu veux !")
+        finishQuest()
+    } else {
+        line(amine, "Je suis Amine.")
+    }
+}
+
+@character "bar"
+skin: "ressources/images/bar.png"
+spawnx: "5568"
+spawny: "1728"
+orientation : "1"
+{
+    line(bar, "Le bar est fermé, on a cours.")
+}
+
+@item "canard"
+image: "ressources/images/item1.png"
+found: "true"
+
+@item "joker"
+image: "ressources/images/item2.png"
+
+@item "souris"
+image: "ressources/images/item3.png"
+
+@sound "subquest"
+sound: "ressources/sound/subquest.mp3"

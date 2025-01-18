@@ -1,0 +1,225 @@
+@quest 1
+name: "Introduction"
+map: "map1"
+nextquest: "quest2"
+
+@subquest 1
+description: "Parler à Tomczak"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 2
+description: "Parler à Michèle"
+#init {
+
+}
+#loop {
+
+}
+
+@subquest 3
+description: "Suivre Michèle à l'aile Nord"
+#init {
+    goto(michele, 106, 160)
+}
+#loop {
+
+}
+
+@subquest 4
+description: "Suivre Michèle à l'aile Sud"
+#init {
+    goto(michele, 209, 177)
+}
+#loop {
+    
+}
+
+@subquest 5
+description: "Suivre Michèle à l'aile Est"
+#init {
+    goto(michele, 176, 137)
+}
+#loop {
+    
+}
+
+@subquest 6
+description: "Manger avec Tomczak"
+#init {
+
+}
+#loop {
+
+}
+
+@character "tomczak"
+skin: "ressources/images/tomczak.png"
+spawnx: "5536"
+spawny: "5952"
+orientation : "3"
+{
+    if(quest.subquest == 1) {
+        line(tomczak, "Bonjour cher élève, bienvenue à TELECOM Nancy !")
+        test = askChoices("Que veux-tu faire ?", "Fuir", "Jouer", "Manger", "Etudier la SIC", 4)
+        if(test == "Etudier la SIC") {
+            line(tomczak, "Ah ah ! C'est bien !")
+            player.name = ask("Comment tu t'appelles déjà ?")
+            line(tomczak, player.name + "... Je m'en souviendrai pour les SIC party !")
+            line(tomczak, "Entre et va voir Michèle.")
+            playsound("subquest")
+            gotoSubquest(2)
+        } else {
+            line(tomczak, "Alors ça ne m'intérresse pas...")
+        }
+    } else {
+        line(tomczak, "Je suis Tomczak, le seul et unique vrai prof.")
+    }
+}
+
+@character "michele"
+skin: "ressources/images/michele.png"
+spawnx: "4128"
+spawny: "4704"
+orientation : "3"
+{
+    if(quest.subquest == 2) {
+        line(michele, "Salut " + player.name + " ! Je suis Michèle !")
+        line(michele, "C'est ton premier jour n'est-ce pas ?")
+        line(michele, "Suis-moi, je vais te montrer l'école.")
+        playsound("subquest")
+        gotoSubquest(3)
+    } else if(quest.subquest == 3) {
+        line(michele, "Voici l'aile Nord.")
+        line(michele, "Il y a un amphi ici, c'est l'amphi Nord,")
+        line(michele, "des fois il y fait froid en hiver.")
+        line(michele, "Suis-moi, on va dans l'aile Sud maintenant.")
+        playsound("subquest")
+        gotoSubquest(4)
+    } else if(quest.subquest == 4) {
+        line(michele, "Voici l'aile Sud. Il y a un amphi ici aussi, c'est l'amphi Sud.")
+        line(michele, "Et il y a également des salles de cours à droite.")
+        answer = askChoices("As-tu réussi le partiel de SD ?","Non", "Non", 2)
+        if(answer == "Non") {
+            line(michele, "Dommage ! Ne t'en fais pas, tu n'es pas le seul... Apparemment c'était un sujet original !")
+        } else {
+            line(michele, "Dommage ! Ne t'en fais pas, tu n'es pas le seul... Apparemment c'était un sujet original !")
+        }
+        line(michele, "Viens, je vais te montrer l'aile Est !")
+        playsound("subquest")
+        gotoSubquest(5)
+    } else if(quest.subquest == 5) {
+        line(michele, "Et pour finir l'aile Est, celle des élèves.")
+        line(michele, "Sur la gauche, c'est le médialab. Tu peux y travailler.")
+        line(michele, "Sur la droite tu trouveras les clubs de l'école.")
+        answer = askChoices("Y-a-t-il un club qui t'intéresse ?", "Musique", "Sport", "Absoludique", "Bar", 4)
+        line(michele, "Génial !")
+        line(michele, "Au fond il y a la cafétéria,")
+        line(michele, "J'espère que tout est clair !")
+        finishQuest()
+    } else {
+        line(michele, "Je suis Michèle.")
+    }
+}
+
+@character "heurtel"
+skin: "ressources/images/heurtel.png"
+spawnx: "2336"
+spawny: "4128"
+orientation : "3"
+{
+    line(heurtel, "Je suis Mme Heurtel.")
+}
+
+@character "heudiard"
+skin: "ressources/images/heudiard.png"
+spawnx: "6432"
+spawny: "5632"
+orientation : "2"
+{
+    line(heudiard, "Je suis Mme Heudiard.")
+}
+
+@character "bouthier"
+skin: "ressources/images/bouthier.png"
+spawnx: "5344"
+spawny: "2464"
+orientation : "3"
+{
+    line(bouthier, "Je suis M Bouthier.")
+}
+
+@character "marc"
+skin: "ressources/images/marc.png"
+spawnx: "4160"
+spawny: "3296"
+orientation : "3"
+{
+    line(marc, "Je suis Marc.")
+}
+
+@character "lucine"
+skin: "ressources/images/lucine.png"
+spawnx: "5536"
+spawny: "2784"
+orientation : "4"
+{
+    line(lucine, "Je suis Lucine.")
+}
+
+@character "theophile"
+skin: "ressources/images/theophile.png"
+spawnx: "4192"
+spawny: "5600"
+orientation : "3"
+{
+    line(theophile, "Je suis Theophile.")
+}
+
+@character "amine"
+skin: "ressources/images/amine.png"
+spawnx: "5280"
+spawny: "3424"
+orientation : "1"
+{
+    line(amine, "Je suis Amine.")
+}
+
+@character "bar"
+skin: "ressources/images/bar.png"
+spawnx: "5568"
+spawny: "1728"
+orientation : "1"
+{
+    line(bar, "Salut ! Je suis de service au bar aujourd'hui.")
+    answer = askChoices("Je te sers quelque chose ?", "Une pomme", "Un oasis PCF", "Une pizza", "Un Kinder Bueno", "Des M&M's", "Un croissant", 6)
+    if (answer == "Une pomme") {
+        line(bar, "Healthy c'est bien ! Bon app")
+    } else if (answer == "Un oasis PCF") {
+        line(bar, "Le meilleur oasis, tu as du gout ;)")
+    } else if (answer == "Une pizza") {
+        line(bar, "Ok ! Elle sera cuite d'ici 20 min.")
+    } else if (answer == "Un Kinder Bueno") {
+        line(bar, "Pas de problème je te donne ça.")
+    } else if (answer == "Des M&M's") {
+        line(bar, "Il n'y en a plus désolé, il faut revenir demain.")
+    } else {
+        line(bar, "Tu as raison, ils sont du jour !")
+    }
+}
+
+@item "canard"
+image: "ressources/images/item1.png"
+
+@item "joker"
+image: "ressources/images/item2.png"
+
+@item "souris"
+image: "ressources/images/item3.png"
+
+@sound "subquest"
+sound: "ressources/sound/subquest.mp3"

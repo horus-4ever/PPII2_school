@@ -1,0 +1,112 @@
+@quest 1
+name: "Name Quest"
+map: "map1"
+nextquest: "quest2"
+
+@subquest 1
+description: "Parler à Tomczak"
+#init {
+
+}
+#loop {
+    
+}
+
+@character "tomczak"
+skin: "ressources/images/tomczak.png"
+spawnx: "5536"
+spawny: "5952"
+orientation : "3"
+{
+    line(tomczak, "Je suis M Tomczak.")
+}
+
+@character "michele"
+skin: "ressources/images/michele.png"
+spawnx: "5376"
+spawny: "5312"
+orientation : "3"
+{
+    line(michele, "Je suis Michèle.")
+}
+
+@character "heurtel"
+skin: "ressources/images/heurtel.png"
+spawnx: "2336"
+spawny: "4128"
+orientation : "3"
+{
+    line(heurtel, "Je suis Mme Heurtel.")
+}
+
+@character "heudiard"
+skin: "ressources/images/heudiard.png"
+spawnx: "6432"
+spawny: "5632"
+orientation : "2"
+{
+    line(heudiard, "Je suis Mme Heudiard.")
+}
+
+@character "bouthier"
+skin: "ressources/images/bouthier.png"
+spawnx: "3296"
+spawny: "4256"
+orientation : "3"
+{
+    line(bouthier, "Je suis M Bouthier.")
+}
+
+@character "marc"
+skin: "ressources/images/marc.png"
+spawnx: "4160"
+spawny: "3296"
+orientation : "3"
+{
+    line(marc, "Je suis Marc.")
+}
+
+@character "lucine"
+skin: "ressources/images/lucine.png"
+spawnx: "5536"
+spawny: "2784"
+orientation : "4"
+{
+    line(lucine, "Je suis Lucine.")
+}
+
+@character "theophile"
+skin: "ressources/images/theophile.png"
+spawnx: "4192"
+spawny: "5600"
+orientation : "3"
+{
+    line(theophile, "Je suis Theophile.")
+}
+
+@character "amine"
+skin: "ressources/images/amine.png"
+spawnx: "5280"
+spawny: "3424"
+orientation : "1"
+{
+    line(heudiard, "Je suis Amine.")
+}
+
+@character "Un gars du bar"
+skin: "ressources/images/mec_bar.png"
+spawnx: "5568"
+spawny: "1728"
+orientation : "1"
+{
+    line(bar, "Je sers au bar.")
+}
+
+@item "canard"
+image: "ressources/images/item1.png"
+
+@item "joker"
+image: "ressources/images/item2.png"
+
+@item "souris"
+image: "ressources/images/item3.png"

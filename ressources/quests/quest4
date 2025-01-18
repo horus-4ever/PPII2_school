@@ -1,0 +1,249 @@
+@quest 1
+name: "La souris disparue"
+map: "map1"
+
+@subquest 1
+description: "Demander à Bouthier de l'aide"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 2
+description: "Retrouver la souris"
+#init {
+    goto(tomczak, 132, 149)
+}
+#loop {
+    
+}
+
+@subquest 3
+description: "Aller à Studio"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 4
+description: "Acheter un Kinder Bueno"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 5
+description: "Donner le bueno à Lucine"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 6
+description: "Aller voir Michèle"
+#init {
+
+}
+#loop {
+    
+}
+
+@character "tomczak"
+skin: "ressources/images/tomczak.png"
+spawnx: "5536"
+spawny: "5952"
+orientation : "3"
+{
+    if (quest.subquest == 2) {
+        line(tomczak, "Pile à l'heure pour une SIC Party !")
+        line(tomczak, "Rendez vous sur sichub !")
+        answer = ask("Quel est le nom d'utilisateur ?")
+        if (answer == "siclover") {
+            line(tomczak, "Exactement !")
+        } else {
+            line(tomczak, "Non ce n'est pas ça ! On voit que tu y es allé souvent...")
+        }
+        line(tomczak, "Tu cherches la souris de Bouthier c'est ça ? Elle n'est pas ici.")
+        line(tomczak, "Je suis sur que c'est encore les élèves de Studio qui l'ont volée...")
+        playsound("subquest")
+        gotoSubquest(3)
+    }
+    line(tomczak, "Je suis M Tomczak")
+}
+
+@character "michele"
+skin: "ressources/images/michele.png"
+spawnx: "5376"
+spawny: "5312"
+orientation : "3"
+{
+    if (quest.subquest == 6) {
+        line(michele, "Bravo tu as retrouvé les 3 objets perdus ! Félicitations")
+        finishQuest()
+    }
+    else {
+        line(michele, "Je suis Michèle.")
+    }
+}
+
+@character "heurtel"
+skin: "ressources/images/heurtel.png"
+spawnx: "2336"
+spawny: "4128"
+orientation : "3"
+{
+    line(heurtel, "Je suis Mme Heurtel.")
+}
+
+@character "heudiard"
+skin: "ressources/images/heudiard.png"
+spawnx: "6432"
+spawny: "5632"
+orientation : "2"
+{
+    line(heudiard, "Je suis Mme Heudiard.")
+}
+
+@character "bouthier"
+skin: "ressources/images/bouthier.png"
+spawnx: "5344"
+spawny: "2464"
+orientation : "3"
+{
+    if (quest.subquest == 1) {
+        line(bouthier, "Salut "+player.name +" !")
+        answer = askChoices("Tu as besoin duquel de mes services ?", "Annuler le partiel", "Réparer mon PC", 2)
+        if (answer == "Annuler le partiel") {
+            line(bouthier, "Ah ça va pas être possible... au pire tu te feras instaban t'en fais pas !")
+        } else {
+            line(bouthier, "C'est possible ! On est au bon endroit.")
+            line(bouthier, "Pendant ce temps là, demande à tomczak où est la souris que je lui ai prêtée.")
+            answer2 = askYesNo("Sais-tu où il est maintenant ?")
+            if (answer2 == "Oui") {
+                line(bouthier, "Super ! Je t'attends")
+            } else {
+                line(bouthier, "Il doit avoir TP dans sa salle habituelle en N.043 ! Je t'attends")
+            }
+            playsound("subquest")
+            gotoSubquest(2)
+        }
+    }
+    else if (quest.subquest == 2) {
+        line(bouthier, "Toujours pas de souris ?")
+        line(bouthier, "Tomczak est en N.043.")
+    }
+
+}
+
+@character "marc"
+skin: "ressources/images/marc.png"
+spawnx: "4160"
+spawny: "3296"
+orientation : "3"
+{
+    line(marc, "Je suis Marc.")
+}
+
+@character "lucine"
+skin: "ressources/images/lucine.png"
+spawnx: "5536"
+spawny: "2784"
+orientation : "4"
+{
+    if (quest.subquest == 3) {
+        line(lucine, "Ah salut " + player.name + " !")
+        answer = askChoices("Tu as besoin de quelque chose ?", "Une souris", "Une photo de CV", 2)
+        if (answer == "Une souris") {
+            line(lucine, "Ah oui une souris... ça me dit quelque chose on avait dû l'emprunter.")
+            line(lucine, "J'ai trop faim par contre, tu peux me prendre un Kinder Bueno à la cafet s'il te plait ?")
+            playsound("subquest")
+            gotoSubquest(4)
+        }
+        else {
+            line(lucine, "Je suis occupée à faire la plaquette alpha actuellement.")
+            line(lucine, "Mais reviens demain !")
+        }
+    }
+    else if (quest.subquest == 4) {
+        line(lucine, "Tu es allé voir ? Je suis sûre que le bar est ouvert !")
+    }
+    else if (quest.subquest == 5) {
+        line(lucine, "Merci tu gères !")
+        line(lucine, "Tiens j'ai retrouvé la souris, mais ne dis pas que c'est nous qui l'avions !")
+        give("souris")
+        line(lucine, "Va voir michèle pour lui dire que tu as trouvé les objets !")
+        playsound("subquest")
+        gotoSubquest(6)
+    }
+    else {
+        line(lucine, "Je suis Lucine.")
+    }
+
+}
+
+@character "theophile"
+skin: "ressources/images/theophile.png"
+spawnx: "4192"
+spawny: "5600"
+orientation : "3"
+{
+    line(theophile, "Je suis Theophile.")
+}
+
+@character "amine"
+skin: "ressources/images/amine.png"
+spawnx: "5280"
+spawny: "3424"
+orientation : "1"
+{
+    line(amine, "Je suis Amine.")
+}
+
+@character "bar"
+skin: "ressources/images/bar.png"
+spawnx: "5568"
+spawny: "1728"
+orientation : "1"
+{
+    line(bar, "Salut ! Je suis de service au bar aujourd'hui.")
+    answer = askChoices("Je te sers quelque chose ?", "Une pomme", "Un oasis PCF", "Une pizza", "Un Kinder Bueno", "Des M&M's", "Un croissant", 6)
+    if (answer == "Une pomme") {
+        line(bar, "Healthy c'est bien ! Bon app")
+    } else if (answer == "Un oasis PCF") {
+        line(bar, "Le meilleur oasis, tu as du gout ;)")
+    } else if (answer == "Une pizza") {
+        line(bar, "Ok ! Elle sera cuite d'ici 20 min.")
+    } else if (answer == "Un Kinder Bueno") {
+        line(bar, "Pas de problème je te donne ça.")
+        if (quest.subquest == 4) {
+            playsound("subquest")
+            gotoSubquest(5)
+        }
+    } else if (answer == "Des M&M's") {
+        line(bar, "Il n'y en a plus désolé, il faut revenir demain.")
+    } else {
+        line(bar, "Tu as raison, ils sont du jour !")
+    }
+}
+
+@item "canard"
+image: "ressources/images/item1.png"
+found: "true"
+
+@item "joker"
+image: "ressources/images/item2.png"
+found: "true"
+
+@item "souris"
+image: "ressources/images/item3.png"
+
+@sound "subquest"
+sound: "ressources/sound/subquest.mp3"

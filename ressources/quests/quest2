@@ -1,0 +1,227 @@
+@quest 2
+name: "Le Canard Jaune"
+map: "map1"
+nextquest: "quest3"
+
+@subquest 1
+description: "Parler à Michèle"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 2
+description: "Trouver Mme Heudiard"
+#init {
+
+}
+#loop {
+    
+}
+
+@subquest 3
+description: "Retrouver Marc"
+#init {
+    goto(michele, 129, 147)
+}
+#loop {
+    
+}
+
+
+@character "tomczak"
+skin: "ressources/images/tomczak.png"
+spawnx: "5536"
+spawny: "5952"
+orientation : "3"
+{
+    line(tomczak, "Je suis M Tomczak.")
+}
+
+
+@character "michele"
+skin: "ressources/images/michele.png"
+spawnx: "4128"
+spawny: "4704"
+orientation : "3"
+{
+    if(quest.subquest == 1) {
+        line(michele, "Je ne trouve plus mon canard jaune, pourrais-tu m'aider à le retrouver ?")
+        answer = askYesNo("Veux-tu aider Michèle ?")
+        if(answer == "Non") {
+            line(michele, "Ne pas aider Michèle dans cette école est un crime !")
+        } else {
+            line(michele, "Super ! C'est surement Mme. Heudiard qui l'a emprunté pour son cours en S.08.")
+            playsound("subquest")
+            gotoSubquest(2)
+        }
+    } else {
+        line(michele, "Je suis Michèle !")
+        answer = askYesNo("Tu cherches quelqu'un ?")
+        if(answer == "Oui") {
+            answer = askChoices("Qui cherches-tu ?", "Mme. Heudiard", "Marc", "Tomczak", 3)
+            if(answer == "Marc") {
+                line(michele, "Je l'ai vu au medialab tout à l'heure.")
+            } else if(answer == "Mme. Heudiard") {
+                line(michele, "Elle est en S.08 !")
+            } else if(answer == "Tomczak") {
+                line(michele, "Il doit être en train de donner son cours.")
+            }
+        } else {
+            line(michele, "A plus tard !")
+        }
+    }
+}
+
+@character "heurtel"
+skin: "ressources/images/heurtel.png"
+spawnx: "2336"
+spawny: "4128"
+orientation : "3"
+{
+    line(heurtel, "Je suis Mme Heurtel.")
+    line(heurtel, "Le cours de MO n'est pas tout de suite, reviens plus tard")
+}
+
+@character "heudiard"
+skin: "ressources/images/heudiard.png"
+spawnx: "6432"
+spawny: "5632"
+orientation : "2"
+{
+    if(quest.subquest == 2) {
+        line(heudiard, "Bonjour " + player.name + " !")
+        answer = askChoices("Tu cherches quelque chose ?", "Le Canard", "Tomczak", "Les résultats d'ASM", "A manger", 4)
+        if(answer == "Le Canard") {
+            line(heudiard, "Ah, le canard ? Malheureusement je l'ai donné au président de l'inté pour sa vidéo.")
+            line(heudiard, "Tu sais comment il s'appelle ?")
+            answer = ask("Le prénom du président de l'inté")
+            if(answer == "Marc") {
+                line(heudiard, "Oui, c'est ça ! Tu es déjà bien intégré à l'école !")
+            } else {
+                line(heudiard, "Non, ce n'est pas " + answer + ", c'est Marc")
+            }
+            line(heudiard, "La dernière fois que je l'ai vu, il était au médialab.")
+            playsound("subquest")
+            gotoSubquest(3)
+        } else if(answer == "Tomczak") {
+            line(heudiard, "Surement parti cueillir des champignons.")
+        } else if(answer == "Les résultats d'ASM") {
+            line(heudiard, "Il ne sont toujours pas là ?")
+            answer = askYesNo("Bouthier me les a donné en secret, tu les veux ?")
+            if(answer == "Oui") {
+                line(heudiard, "Bouthier m'a dit que tu t'es fait instaban... oups")
+            } else {
+                line(heudiard, "C'est bien aussi l'ignorance...")
+            }
+        } else if(answer == "A manger") {
+            line(heudiard, "La cafétéria est juste au fond !")
+        }
+    } else if(quest.subquest >= 3) {
+        answer = askYesNo("Tu cherches toujours Marc ?")
+        if(answer == "Oui") {
+            line(heudiard, "Il était au médialab.")
+        } else {
+            line(heudiard, "Passe une bonne journée !")
+        }
+    } else {
+        line(heudiard, "Je suis Heudiard.")
+    }
+}
+
+@character "bouthier"
+skin: "ressources/images/bouthier.png"
+spawnx: "5344"
+spawny: "2464"
+orientation : "3"
+{
+    line(bouthier, "Je suis M Bouthier.")
+}
+
+@character "marc"
+skin: "ressources/images/marc.png"
+spawnx: "4160"
+spawny: "3296"
+orientation : "3"
+{
+    if(quest.subquest == 3) {
+        line(marc, "Tu cherches le canard ?")
+        line(marc, "Je ne te le donne que si tu me donnes le prénom de mon club d'inté ;)")
+        answer = ask("Quel est le nom du club d'inté de Marc ?")
+        if(answer == "N'inténdo") {
+            line(marc, "Bien joué !")
+            line(marc, "Tiens, cadeau !")
+            give("canard")
+            line(marc, "Maintenant dépèche toi on a CM de MO !")
+            finishQuest()
+        } else {
+            line(marc, "Non... reviens-me voir quand tu le sais.")
+        }
+    } else {
+        line(marc, "Moi, c'est Marc, le président de l'inté !")
+    }
+}
+
+@character "lucine"
+skin: "ressources/images/lucine.png"
+spawnx: "5536"
+spawny: "2784"
+orientation : "4"
+{
+    line(lucine, "Je suis Lucine.")
+}
+
+@character "theophile"
+skin: "ressources/images/theophile.png"
+spawnx: "4192"
+spawny: "5600"
+orientation : "3"
+{
+    line(theophile, "Je suis Theophile.")
+}
+
+@character "amine"
+skin: "ressources/images/amine.png"
+spawnx: "5280"
+spawny: "3424"
+orientation : "1"
+{
+    line(amine, "Je suis Amine.")
+}
+
+@character "bar"
+skin: "ressources/images/bar.png"
+spawnx: "5568"
+spawny: "1728"
+orientation : "1"
+{
+    line(bar, "Salut ! Je suis de service au bar aujourd'hui.")
+    answer = askChoices("Je te sers quelque chose ?", "Une pomme", "Un oasis PCF", "Une pizza", "Un Kinder Bueno", "Des M&M's", "Un croissant", 6)
+    if (answer == "Une pomme") {
+        line(bar, "Healthy c'est bien ! Bon app")
+    } else if (answer == "Un oasis PCF") {
+        line(bar, "Le meilleur oasis, tu as du gout ;)")
+    } else if (answer == "Une pizza") {
+        line(bar, "Ok ! Elle sera cuite d'ici 20 min.")
+    } else if (answer == "Un Kinder Bueno") {
+        line(bar, "Pas de problème je te donne ça.")
+    } else if (answer == "Des M&M's") {
+        line(bar, "Il n'y en a plus désolé, il faut revenir demain.")
+    } else {
+        line(bar, "Tu as raison, ils sont du jour !")
+    } 
+}
+
+@item "canard"
+image: "ressources/images/item1.png"
+
+@item "joker"
+image: "ressources/images/item2.png"
+
+@item "souris"
+image: "ressources/images/item3.png"
+
+@sound "subquest"
+sound: "ressources/sound/subquest.mp3"
